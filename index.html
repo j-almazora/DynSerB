@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Name</title>
+</head>
+
+<body>
+    <div id="controls">
+        <input type="text" id="nameInp" placeholder="Type your name here">
+        <button id="send">Send</button>
+    </div>
+
+    <div id="display"></div>
+
+    <script>
+        document.getElementById("send").addEventListener("click", function() {
+            var nameVal = document.getElementById("nameInp").value;
+            
+            fetch("http://localhost:3000/name/"+nameVal).then(function(resp){
+                console.log(resp);
+                return resp.json();
+            }).then(function(json) {
+               console.log(json);
+                document.getElementById("display").innerHTML = "";
+                
+                for (var i = 0; i < json.length; i++) {
+                    var ndiv = document.createElement("div");
+                    ndiv.innerHTML = json[i];
+                    document.getElementById("display").appendChild(ndiv);
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
